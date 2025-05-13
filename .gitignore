@@ -3,7 +3,6 @@ node_modules/
 jspm_packages/
 
 # TypeScript output directory
-dist/
 build/
 lib/
 
