@@ -8,4 +8,8 @@ router.post('/', (req, res) => {
     paymentController.createPreference(req, res);
 });
 
+router.get('/', (req, res) => {
+    res.status(200).json({ message: 'Hello World' });
+});
+
 export default router;
