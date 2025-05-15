@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Preference } from "mercadopago";
 import mercadoPagoClient from "../config/mercadopago";
-import { Item } from "mercadopago/dist/clients/order/commonTypes";
 import { ItemRequest } from "../types/payment.types";
 
 export class PaymentController {
@@ -36,7 +35,7 @@ export class PaymentController {
 
       // Create a new preference instance
       const preference = new Preference(mercadoPagoClient);
-
+      
       // Create the preference
       const preferenceResult = await preference.create({
         body: {
@@ -50,12 +49,13 @@ export class PaymentController {
             ],
           },
           back_urls: {
-            success: "https://test.com/success",
-            pending: "https://test.com/pending",
-            failure: "https://test.com/failure",
+            success: "https://front-end-mercado-pago-integration.vercel.app/success",
+            pending: "https://front-end-mercado-pago-integration.vercel.app/test.com/pending",
+            failure: "https://front-end-mercado-pago-integration.vercel.app/failure",
           },
           // auto_return: "approved",
           external_reference: `ORDER-${Date.now()}`,
+          notification_url: "https://checkout-pro-node-ts-integration.vercel.app/api/payment/webhook/mercadopago",
         },
         requestOptions: {
           integratorId: "dev_24c65fb163bf11ea96500242ac130004",
@@ -67,6 +67,22 @@ export class PaymentController {
         message: "Payment preference created successfully",
         data: preferenceResult,
       });
+    } catch (error) {
+      console.error("Error creating payment preference:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      res.status(500).json({
+        message: "Failed to create payment preference",
+        error: errorMessage,
+      });
+    }
+  }
+
+  async webhook(req: Request, res: Response) {
+    try {
+      // Handle the webhook notification from Mercado Pago
+      console.log("Webhook received:", req.body);
+      res.status(200).json({ message: "Webhook received successfully" });
     } catch (error) {
       console.error("Error creating payment preference:", error);
       const errorMessage =
