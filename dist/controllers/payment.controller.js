@@ -67,7 +67,7 @@ class PaymentController {
                             failure: "https://front-end-mercado-pago-integration.vercel.app/failure",
                         },
                         // auto_return: "approved",
-                        external_reference: `ORDER-${Date.now()}`,
+                        external_reference: 'jdnaranjo2602@gmail.com',
                         notification_url: "https://checkout-pro-node-ts-integration.vercel.app/api/payment/webhook/mercadopago",
                     },
                     requestOptions: {
