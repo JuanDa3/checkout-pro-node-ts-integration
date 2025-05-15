@@ -43,7 +43,7 @@ class PaymentController {
                         picture_url: item.picture_url || "",
                         category_id: item.category_id || "",
                         quantity: item.quantity || 1,
-                        currency_id: item.currency_id || "USD",
+                        currency_id: item.currency_id || "COP",
                         unit_price: Number(item.unit_price) || 0,
                     });
                 });
